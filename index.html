@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>Secret Memberships</title>
     <link rel="icon" href="favicon.png" type="image/x-icon" />
     <style>
@@ -23,9 +24,11 @@
         justify-content: center;
         max-width: 1200px;
         width: 100%;
+        margin: 0 auto;
       }
 
-      .membership-box {
+      .membership-box,
+      .free-membership-box {
         background-color: transparent;
         border: 2px solid white;
         color: white;
@@ -44,21 +47,7 @@
       }
 
       .free-membership-box {
-        background-color: transparent;
         border: 3px solid #39ff14;
-        color: white;
-        width: 250px;
-        padding: 20px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s, border-color 0.3s, transform 0.5s;
-        position: relative;
-        height: 300px;
-        justify-content: space-between;
       }
 
       .membership-title {
@@ -81,6 +70,7 @@
         padding: 5px 10px;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
+        -webkit-transition: background-color 0.3s, color 0.3s; /* Safari Fix */
       }
 
       .access-button {
@@ -90,9 +80,10 @@
         padding: 5px 10px;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
+        -webkit-transition: background-color 0.3s, color 0.3s; /* Safari Fix */
       }
 
-      .access-button:hover{
+      .access-button:hover {
         background-color: #39ff14;
         color: #000000;
       }
@@ -105,6 +96,7 @@
         padding: 5px 10px;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
+        -webkit-transition: background-color 0.3s, color 0.3s; /* Safari Fix */
       }
 
       .unlock-button:hover {
@@ -113,7 +105,7 @@
       }
 
       .perks {
-        font-size: .9em;
+        font-size: 0.9em;
         list-style-type: none;
         text-align: left;
         width: 100%;
@@ -121,7 +113,7 @@
 
       /* Animation for unlocking the box */
       .membership-box.unlocked {
-        animation: expandShake 1s ease-out; /* Apply the animation when unlocked */
+        animation: expandShake 1s ease-out;
         border: 3px solid #39ff14;
         transition: border-color 0.3s ease;
       }
@@ -144,14 +136,52 @@
         }
       }
 
+      /* Mobile Responsiveness */
       @media (max-width: 600px) {
         body {
           font-size: 14px;
         }
-        .membership-box {
-          padding: 15px;
-          height: auto;
+
+        .membership-container {
+          flex-direction: column; /* Stack items in a single column on small screens */
+          align-items: center; /* Center the boxes */
         }
+
+        .membership-box,
+        .free-membership-box {
+          padding: 15px;
+          width: 90%; /* Adjust width to fit screen size */
+          max-width: 350px; /* Limit max width */
+          height: auto; /* Allow height to be dynamic */
+        }
+
+        .membership-title {
+          font-size: 1.2em;
+        }
+
+        .perks {
+          font-size: 0.85em; /* Adjust perks text size */
+        }
+
+        .countdown,
+        .access-button,
+        .unlock-button {
+          font-size: 1.1em; /* Slightly smaller button font size */
+          padding: 8px 15px; /* Increase padding for touch devices */
+        }
+      }
+
+      @media (max-width: 400px) {
+        .membership-title {
+          font-size: 1em; /* Smaller titles on smaller screens */
+        }
+
+        .countdown,
+        .access-button,
+        .unlock-button {
+          font-size: 1em; /* Reduce button size further */
+        }
+      }
       }
     </style>
   </head>
@@ -221,7 +251,7 @@
       </div>
 
       <!-- Diamond Plus Membership -->
-      <div class="membership-box" data-level="diamondplus" data-clicks="2" onclick="decrementClicks(this)">
+      <div class="membership-box" data-level="diamondplus" data-clicks="25" onclick="decrementClicks(this)">
         <div class="membership-title">Diamond Plus Membership</div>
         <div class="divider"></div>
         <p class="perks">Access all secrets...</p>
@@ -231,17 +261,17 @@
     </div>
 
     <script>
-      function goToSecrets(level) {
+function goToSecrets(level) {
         window.location.href = `secrets.html?level=${level}`;
       }
 
       function decrementClicks(membershipBox) {
         const countdownButton = membershipBox.querySelector(".countdown");
-        let clicksLeft = parseInt(membershipBox.getAttribute('data-clicks'));
-        
+        let clicksLeft = parseInt(membershipBox.getAttribute("data-clicks"));
+
         if (clicksLeft > 0) {
           clicksLeft--;
-          membershipBox.setAttribute('data-clicks', clicksLeft);
+          membershipBox.setAttribute("data-clicks", clicksLeft);
           countdownButton.textContent = `${clicksLeft} clicks left`;
 
           if (clicksLeft === 0) {
@@ -249,7 +279,7 @@
             countdownButton.disabled = true;
             countdownButton.classList.add("unlocked");
             membershipBox.querySelector(".unlock-button").style.display = "block"; // Show the unlock button
-            
+
             // Trigger animation when unlocked
             membershipBox.classList.add("unlocked");
           }
