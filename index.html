@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <title>Secret Memberships</title>
     <link rel="icon" href="favicon.png" type="image/x-icon" />
-    <!-- Replace with the path to your favicon file -->
-
     <style>
-      /* Basic styling for body and membership boxes */
       body {
         margin: 0;
         font-family: Helvetica, Arial, sans-serif;
@@ -42,50 +39,87 @@
         cursor: pointer;
         transition: background-color 0.3s, border-color 0.3s, transform 0.5s;
         position: relative;
-        height: 300px; /* Adjust as needed to accommodate the layout */
-        justify-content: space-between; /* Distribute content within the box */
+        height: 300px;
+        justify-content: space-between;
       }
 
-      .membership-box .content-container {
+      .free-membership-box {
+        background-color: transparent;
+        border: 3px solid #39ff14;
+        color: white;
+        width: 250px;
+        padding: 20px;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        flex-grow: 1; /* Allow it to expand within the available space */
-        justify-content: center; /* Center the content vertically */
-        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, transform 0.5s;
+        position: relative;
+        height: 300px;
+        justify-content: space-between;
       }
 
-      .membership-box .actions-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        width: 100%; /* Ensure it spans the width of the box */
+      .membership-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        text-transform: uppercase;
       }
 
-      .membership-box.free-trial {
-        border-color: #39ff14; /* Bright green */
-        border-width: 3px; /* Thicker border */
-        border-style: solid; /* Solid border */
-        transition: border-color 0.3s ease-in-out; /* Smooth transitions */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background-color: white;
+        margin: 10px 0;
       }
 
-      @keyframes colorCycle {
-        0% {
-          color: #39ff14;
-        }
-        33% {
-          color: #ff00dc;
-        }
-        66% {
-          color: #0000ff;
-        }
-        100% {
-          color: #39ff14;
-        }
+      .countdown {
+        font-size: 1.2em;
+        background-color: white;
+        color: black;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
       }
 
+      .access-button {
+        font-size: 1.2em;
+        background-color: white;
+        color: black;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .access-button:hover{
+        background-color: #39ff14;
+        color: #000000;
+      }
+
+      .unlock-button {
+        display: none;
+        font-size: 1.2em;
+        background-color: white;
+        color: black;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .unlock-button:hover {
+        background-color: #39ff14;
+        color: #000000;
+      }
+
+      .perks {
+        font-size: .9em;
+        list-style-type: none;
+        text-align: left;
+        width: 100%;
+      }
+
+      /* Animation for unlocking the box */
       .membership-box.unlocked {
         animation: expandShake 1s ease-out; /* Apply the animation when unlocked */
         border: 3px solid #39ff14;
@@ -110,89 +144,6 @@
         }
       }
 
-      .membership-box.unlocked {
-        animation: expandShake 1s ease-out; /* Apply the animation to the membership-box */
-      }
-
-      .membership-box:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-
-      .membership-title {
-        font-size: 1.5em;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-
-      .divider {
-        width: 100%;
-        height: 1px;
-        background-color: white;
-        margin: 10px 0;
-      }
-
-      .perks {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-        width: 100%;
-      }
-
-      .perk-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .perk-item .checkbox-icon {
-        order: 1; /* Moves the checkbox icon to the right */
-      }
-
-      .checkbox-icon {
-        display: inline-block;
-        width: 1em; /* Set width to match text size */
-        height: 1em; /* Set height to match text size */
-        background-image: url("checkmark.png"); /* Use your checkmark image */
-        background-size: contain; /* Scale image to fit */
-        background-repeat: no-repeat;
-        background-position: center;
-        vertical-align: middle; /* Align vertically with text */
-      }
-
-      .countdown {
-        font-size: 1.2em;
-        background-color: white;
-        color: black;
-        padding: 5px 10px;
-        position: static; /* Make it part of the normal flow */
-        transform: none; /* Remove centering transforms */
-        margin-bottom: 10px;
-      }
-
-      .countdown.unlocked {
-        cursor: pointer;
-        background-color: #39ff14;
-        color: black;
-        pointer-events: all;
-      }
-
-      .access-button {
-        background-color: #39ff14;
-        color: black;
-        padding: 10px 20px;
-        font-size: 1.2em;
-        border: none;
-        cursor: pointer;
-        width: 100%; /* Make it span the width of the box for better aesthetics */
-      }
-
-      .access-button:hover {
-        background-color: #000000;
-        color: rgb(255, 255, 255);
-      }
-
-      /* Mobile styles */
       @media (max-width: 600px) {
         body {
           font-size: 14px;
@@ -207,213 +158,103 @@
   <body>
     <h1>Want to Access the Secrets?</h1>
     <div class="membership-container">
-      <!-- FREE Bronze Membership -->
-      <div class="membership-box free-trial">
-        <div class="content-container">
-          <div class="membership-title">Free Trial</div>
-          <div class="divider"></div>
-          <ul class="perks">
-            <li class="perk-item">
-              <span class="checkbox-icon"></span> Get 1 FREE (two word)
-              secret...
-            </li>
-          </ul>
-        </div>
-        <div class="actions-container">
-            <button
-            class="access-button"
-            aria-label="Access a Random Secret"
-            onclick="window.location.href = 'secrets.html';"
-          >
-            Access Secrets
-          </button>
-        </div>
+      <!-- Free Trial -->
+      <div class="free-membership-box" data-level="free" onclick="goToSecrets('free')">
+        <div class="membership-title">Free Trial</div>
+        <div class="divider"></div>
+        <p class="perks">Access all 2 word secrets...</p>
+        <button class="access-button">Access Secrets</button>
       </div>
 
       <!-- Bronze Membership -->
-      <div
-        class="membership-box"
-        data-clicks="5"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">5 clicks left</div>
+      <div class="membership-box" data-level="bronze" data-clicks="5" onclick="decrementClicks(this)">
         <div class="membership-title">Bronze Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK the FIRST 3 WORDS of ALL
-            CURRENTLY SUBMITTED SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all 3 word secrets...</p>
+        <button class="countdown">5 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('bronze')">Access Secrets</button>
       </div>
 
       <!-- Silver Membership -->
-      <div
-        class="membership-box"
-        data-clicks="25"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">25 clicks left</div>
+      <div class="membership-box" data-level="silver" data-clicks="25" onclick="decrementClicks(this)">
         <div class="membership-title">Silver Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK the FIRST 6 WORDS of ALL
-            CURRENTLY SUBMITTED SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all 6 word secrets...</p>
+        <button class="countdown">25 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('silver')">Access Secrets</button>
       </div>
 
       <!-- Gold Membership -->
-      <div
-        class="membership-box"
-        data-clicks="50"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">50 clicks left</div>
+      <div class="membership-box" data-level="gold" data-clicks="50" onclick="decrementClicks(this)">
         <div class="membership-title">Gold Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK the FIRST 10 WORDS of ALL
-            CURRENTLY SUBMITTED SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all 10 word secrets...</p>
+        <button class="countdown">50 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('gold')">Access Secrets</button>
       </div>
 
       <!-- Platinum Membership -->
-      <div
-        class="membership-box"
-        data-clicks="125"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">125 clicks left</div>
+      <div class="membership-box" data-level="platinum" data-clicks="125" onclick="decrementClicks(this)">
         <div class="membership-title">Platinum Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK the FIRST 15 words of ALL
-            CURRENTLY SUBMITTED SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all 15 word secrets...</p>
+        <button class="countdown">125 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('platinum')">Access Secrets</button>
       </div>
 
       <!-- Platinum Plus Membership -->
-      <div
-        class="membership-box"
-        data-clicks="225"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">225 clicks left</div>
-        <div class="membership-title">Platinum PLUS Membership</div>
+      <div class="membership-box" data-level="platinumplus" data-clicks="250" onclick="decrementClicks(this)">
+        <div class="membership-title">Platinum Plus Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK the FIRST 25 words of ALL
-            CURRENTLY SUBMITTED SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all 25 word secrets...</p>
+        <button class="countdown">250 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('platinumplus')">Access Secrets</button>
       </div>
 
       <!-- Diamond Membership -->
-      <div
-        class="membership-box"
-        data-clicks="500"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">500 clicks left</div>
+      <div class="membership-box" data-level="diamond" data-clicks="500" onclick="decrementClicks(this)">
         <div class="membership-title">Diamond Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK the FIRST 35 words of ALL
-            CURRENTLY SUBMITTED SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all 35 word secrets...</p>
+        <button class="countdown">500 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('diamond')">Access Secrets</button>
       </div>
 
-      <!-- Diamond Membership -->
-      <div
-        class="membership-box"
-        data-clicks="1000"
-        onclick="unlockMembership(this)"
-      >
-        <div class="countdown">1000 clicks left</div>
-        <div class="membership-title">Diamond PLUS Membership</div>
+      <!-- Diamond Plus Membership -->
+      <div class="membership-box" data-level="diamondplus" data-clicks="2" onclick="decrementClicks(this)">
+        <div class="membership-title">Diamond Plus Membership</div>
         <div class="divider"></div>
-        <ul class="perks">
-          <li class="perk-item">
-            <span class="checkbox-icon"></span> UNLOCK ALL CURRENTLY SUBMITTED
-            SECRETS...
-          </li>
-        </ul>
+        <p class="perks">Access all secrets...</p>
+        <button class="countdown">1000 clicks left</button>
+        <button class="unlock-button" onclick="goToSecrets('diamondplus')">Access Secrets</button>
       </div>
     </div>
 
-    <div id="secrets-container">
-      <!-- Secrets will be dynamically inserted here -->
-    </div>
-
     <script>
-      async function fetchSecrets() {
-        try {
-          const url =
-            "https://script.google.com/macros/s/AKfycbwBFjddjB44MxPvIe60V2nLxeDIwu82eFJudL1z5NcN70r6Yk6sy91jnceZef6PUe2e/exec"; // Replace with your API URL
-          console.log("Fetching from:", url);
-
-          const response = await fetch(url);
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log("API Response:", data);
-
-          const secretsContainer = document.getElementById("secrets-container");
-          secretsContainer.innerHTML = ""; // Clear existing content
-
-          if (!data.length) {
-            secretsContainer.innerHTML = "<p>No secrets found.</p>";
-            return;
-          }
-
-          data.forEach((item) => {
-            const secretElement = document.createElement("p");
-            secretElement.textContent = item.secret; // Add the secret text
-            secretsContainer.appendChild(secretElement);
-          });
-        } catch (error) {
-          console.error("Fetch Error:", error);
-          alert(`Failed to fetch secrets: ${error.message}`);
-        }
+      function goToSecrets(level) {
+        window.location.href = `secrets.html?level=${level}`;
       }
-    </script>
 
-    <script>
-      const colors = ["#ff5c00", "#ff00dc", "#0000FF", "#ed0057", "#9d03fc"];
-      document.body.style.backgroundColor =
-        colors[Math.floor(Math.random() * colors.length)];
-
-      function unlockMembership(element) {
-        const countdownElement = element.querySelector(".countdown");
-        let clicksLeft = parseInt(element.getAttribute("data-clicks"));
-
+      function decrementClicks(membershipBox) {
+        const countdownButton = membershipBox.querySelector(".countdown");
+        let clicksLeft = parseInt(membershipBox.getAttribute('data-clicks'));
+        
         if (clicksLeft > 0) {
           clicksLeft--;
-          element.setAttribute("data-clicks", clicksLeft);
-          countdownElement.textContent = `${clicksLeft} clicks left`;
+          membershipBox.setAttribute('data-clicks', clicksLeft);
+          countdownButton.textContent = `${clicksLeft} clicks left`;
 
           if (clicksLeft === 0) {
-            element.classList.add("unlocked");
-            countdownElement.textContent = "Unlocked!";
-            countdownElement.classList.add("unlocked");
-            countdownElement.style.pointerEvents = "none"; // Disable further interactions
+            countdownButton.textContent = "Unlocked!";
+            countdownButton.disabled = true;
+            countdownButton.classList.add("unlocked");
+            membershipBox.querySelector(".unlock-button").style.display = "block"; // Show the unlock button
+            
+            // Trigger animation when unlocked
+            membershipBox.classList.add("unlocked");
           }
         }
       }
-
-      
     </script>
   </body>
 </html>
